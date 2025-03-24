@@ -11,39 +11,37 @@ const TextCompare = () => {
   const [text2, setText2] = useState("");
   const [differences, setDifferences] = useState("");
 
-  // Initialize diff-match-patch
-  const dmp = new diff_match_patch();
-
-  const compareTexts = () => {
-    if (!text1 && !text2) {
-      setDifferences("");
-      return;
-    }
-
-    // Calculate diffs
-    const diffs = dmp.diff_main(text1, text2);
-    dmp.diff_cleanupSemantic(diffs);
-
-    // Convert diffs to HTML with highlighting
-    let formattedDiff = "";
-    diffs.forEach(([type, text]) => {
-      switch (type) {
-        case 1: // Insertion
-          formattedDiff += `<span class="bg-green-500/20 text-green-700 dark:text-green-300">${text}</span>`;
-          break;
-        case -1: // Deletion
-          formattedDiff += `<span class="bg-red-500/20 text-red-700 dark:text-red-300">${text}</span>`;
-          break;
-        case 0: // No change
-          formattedDiff += text;
-          break;
-      }
-    });
-
-    setDifferences(formattedDiff);
-  };
-
   useEffect(() => {
+    const dmp = new diff_match_patch();
+    const compareTexts = () => {
+      if (!text1 && !text2) {
+        setDifferences("");
+        return;
+      }
+
+      // Calculate diffs
+      const diffs = dmp.diff_main(text1, text2);
+      dmp.diff_cleanupSemantic(diffs);
+
+      // Convert diffs to HTML with highlighting
+      let formattedDiff = "";
+      diffs.forEach(([type, text]) => {
+        switch (type) {
+          case 1: // Insertion
+            formattedDiff += `<span class="bg-green-500/20 text-green-700 dark:text-green-300">${text}</span>`;
+            break;
+          case -1: // Deletion
+            formattedDiff += `<span class="bg-red-500/20 text-red-700 dark:text-red-300">${text}</span>`;
+            break;
+          case 0: // No change
+            formattedDiff += text;
+            break;
+        }
+      });
+
+      setDifferences(formattedDiff);
+    };
+
     compareTexts();
   }, [text1, text2]);
 
