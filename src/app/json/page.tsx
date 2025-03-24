@@ -5,7 +5,7 @@ import { useState } from "react";
 import { JsonViewer, NamedColorspace } from "@textea/json-viewer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-export const darkColorspace: NamedColorspace = {
+const darkColorspace: NamedColorspace = {
   scheme: "DarkColorSpace",
   author: "Hitarth Shah",
   base00: "#2b303b", // Dark background
