@@ -19,6 +19,7 @@ const Jwt = () => {
         .replace(/[}]/g, "}")
         .replace(/[:,]/g, (match) => `${match} `);
     } catch (error) {
+      console.error(error);
       return jsonString;
     }
   };
@@ -42,12 +43,14 @@ const Jwt = () => {
       setDecodedHeader(beautifyJSON(header));
       setDecodedPayload(beautifyJSON(payload));
     } catch (error) {
+      console.error(error);
+
       setDecodedHeader("Invalid JWT Header");
       setDecodedPayload("Invalid JWT Payload");
     }
   };
 
-  const handleTokenChange = (e: { target: { value: any } }) => {
+  const handleTokenChange = (e: { target: { value: string } }) => {
     const value = e.target.value;
     setToken(value);
 
