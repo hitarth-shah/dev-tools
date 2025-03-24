@@ -17,15 +17,16 @@ import {
   Timer,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import type { LucideIcon } from "lucide-react";
 
 interface CardItemProps {
   title: string;
   url: string;
   description: string;
-  icon: string; // Accept icon as a prop
+  icon: string;
 }
 
-const iconMap = {
+const iconMap: Record<string, LucideIcon> = {
   BookOpenText,
   Clock,
   Code,
@@ -44,7 +45,7 @@ export const CardItem = ({ title, url, description, icon }: CardItemProps) => {
     router.push(url);
   };
 
-  const Icon = iconMap[icon];
+  const Icon: LucideIcon = iconMap[icon];
 
   return (
     <Card
