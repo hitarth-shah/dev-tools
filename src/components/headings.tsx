@@ -10,7 +10,7 @@ export const Heading = ({ heading, subHeading }: HeadingProps) => {
     <div className="flex flex-col gap-2 pb-8">
       <h5 className="text-4xl font-bold">{heading}</h5>
       <p className="text-muted-foreground">
-        Paste your JSON to format and validate it
+        {subHeading}
       </p>
     </div>
   );
