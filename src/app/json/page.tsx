@@ -41,7 +41,7 @@ const Json = () => {
       setError("");
       return JSON.stringify(parsed, null, 2);
     } catch (error) {
-      setError("Invalid JSON format");
+      setError("Invalid JSON format" + error);
       return "";
     }
   };
