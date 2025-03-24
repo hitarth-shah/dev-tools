@@ -1,70 +1,59 @@
 import { CardItem } from "@/components/card-item";
-import {
-  BookOpenText,
-  Clock,
-  Code,
-  FileCode2,
-  FileJson,
-  Fingerprint,
-  KeyRound,
-  Regex,
-  Timer,
-} from "lucide-react";
 
 const Home = () => {
   const items = [
     {
       title: "JSON Viewer",
       url: "/json",
-      icon: FileJson,
+      icon: "FileJson",
       description: "Card Description",
     },
     {
       title: "Text Compare",
       url: "/text-compare",
-      icon: BookOpenText,
+      icon: "BookOpenText",
       description: "Card Description",
     },
     {
       title: "Cron Calculator",
       url: "/cron",
-      icon: Clock,
+      icon: "Clock",
       description: "Card Description",
     },
     {
       title: "Regex Generator",
       url: "/regex",
-      icon: Regex,
+      icon: "Regex",
       description: "Card Description",
     },
     {
       title: "UUID Generator",
       url: "/uuid",
-      icon: KeyRound,
+      icon: "KeyRound",
       description: "Card Description",
     },
     {
       title: "Playground",
       url: "/playground",
-      icon: Code,
+      icon: "Code",
       description: "Card Description",
     },
     {
       title: "Timestamp",
       url: "/timestamp",
-      icon: Timer,
+      icon: "Timer",
       description: "Card Description",
     },
     {
       title: "Base64 Converter",
       url: "/base64",
-      icon: FileCode2,
+      icon: "FileCode2",
       description: "Card Description",
     },
     {
       title: "JWT Decoder",
       url: "/jwt",
-      icon: Fingerprint,
+      icon: "Fingerprint",
       description: "Card Description",
     },
   ];
@@ -85,6 +74,7 @@ const Home = () => {
             title={item.title}
             url={item.url}
             description={item.description}
+            icon={item.icon}
           />
         ))}
       </div>

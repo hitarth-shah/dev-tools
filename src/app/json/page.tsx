@@ -4,6 +4,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 import { JsonViewer, NamedColorspace } from "@textea/json-viewer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Heading } from "@/components/headings";
 
 const darkColorspace: NamedColorspace = {
   scheme: "DarkColorSpace",
@@ -54,12 +55,10 @@ const Json = () => {
 
   return (
     <div className="flex flex-col p-8 h-screen w-full max-w-[1600px] mx-auto">
-      <div className="flex flex-col gap-2 pb-8">
-        <h5 className="text-4xl font-bold">JSON Formatter</h5>
-        <p className="text-muted-foreground">
-          Paste your JSON to format and validate it
-        </p>
-      </div>
+      <Heading
+        heading="JSON Formatter"
+        subHeading="Paste your JSON to format and validate it"
+      />
 
       <Tabs defaultValue="code" className="flex-1">
         <div className="flex flex-col h-[calc(100vh-10rem)] gap-6">

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { Heading } from "@/components/headings";
 
 const Uuid = () => {
   const [uuids, setUuids] = useState<string[]>([]);
@@ -42,12 +43,10 @@ const Uuid = () => {
 
   return (
     <div className="flex flex-col p-8 h-screen w-full max-w-[1600px] mx-auto">
-      <div className="flex flex-col gap-2 pb-8">
-        <h5 className="text-4xl font-bold">UUID Generator</h5>
-        <p className="text-muted-foreground">
-          Generate UUIDs (v4) - universally unique identifiers
-        </p>
-      </div>
+      <Heading
+        heading="UUID Generator"
+        subHeading="Generate UUIDs (v4) - universally unique identifiers"
+      />
 
       <div className="flex h-[calc(100vh-10rem)] gap-6">
         <div className="flex flex-col w-full gap-4">

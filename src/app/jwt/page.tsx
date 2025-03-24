@@ -1,5 +1,6 @@
 "use client";
 
+import { Heading } from "@/components/headings";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useRef, useState } from "react";
@@ -65,12 +66,10 @@ const Jwt = () => {
 
   return (
     <div className="flex flex-col p-8 h-screen w-full max-w-[1600px] mx-auto">
-      <div className="flex flex-col gap-2 pb-8">
-        <h5 className="text-4xl font-bold">JWT Decoder</h5>
-        <p className="text-muted-foreground">
-          Paste your JWT token to decode and validate it
-        </p>
-      </div>
+      <Heading
+        heading="JWT Decoder"
+        subHeading="Paste your JWT token to decode and validate it"
+      />
 
       <div className="flex h-[calc(100vh-10rem)] gap-6">
         {/* Input Section */}

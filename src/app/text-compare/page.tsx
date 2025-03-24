@@ -4,6 +4,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useState, useEffect } from "react";
 import { diff_match_patch } from "diff-match-patch";
+import { Heading } from "@/components/headings";
 
 const TextCompare = () => {
   const [text1, setText1] = useState("");
@@ -48,12 +49,10 @@ const TextCompare = () => {
 
   return (
     <div className="flex flex-col p-8 h-screen w-full max-w-[1600px] mx-auto">
-      <div className="flex flex-col gap-2 pb-8">
-        <h5 className="text-4xl font-bold">Text Compare</h5>
-        <p className="text-muted-foreground">
-          Compare two texts and see their differences
-        </p>
-      </div>
+      <Heading
+        heading="Text Compare"
+        subHeading="Compare two texts and see their differences"
+      />
 
       <div className="flex h-[calc(100vh-10rem)] gap-6">
         {/* Input Sections */}

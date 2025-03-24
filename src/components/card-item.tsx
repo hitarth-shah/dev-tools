@@ -5,28 +5,55 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { HomeIcon } from "lucide-react";
+import {
+  BookOpenText,
+  Clock,
+  Code,
+  FileCode2,
+  FileJson,
+  Fingerprint,
+  KeyRound,
+  Regex,
+  Timer,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 
 interface CardItemProps {
   title: string;
   url: string;
   description: string;
+  icon: string; // Accept icon as a prop
 }
 
-export const CardItem = ({ title, url, description }: CardItemProps) => {
+const iconMap = {
+  BookOpenText,
+  Clock,
+  Code,
+  FileCode2,
+  FileJson,
+  Fingerprint,
+  KeyRound,
+  Regex,
+  Timer,
+};
+
+export const CardItem = ({ title, url, description, icon }: CardItemProps) => {
   const router = useRouter();
 
   const handleClick = (url: string) => {
     router.push(url);
   };
+
+  const Icon = iconMap[icon];
+
   return (
     <Card
       className="flex items-center p-4 h-28 w-[500px] cursor-pointer transform transition-transform duration-300 hover:scale-105"
       onClick={() => handleClick(url)}
     >
       <div className="bg-sidebar-accent h-12 w-12 flex justify-center items-center rounded-lg">
-        <HomeIcon size={32} className="p-1" />
+        <Icon size={32} className="p-1" />
+        {/* <HomeIcon size={32} className="p-1" /> */}
       </div>
       <CardHeader className="pl-4 py-2">
         <CardTitle className="flex gap-0.5 items-center">

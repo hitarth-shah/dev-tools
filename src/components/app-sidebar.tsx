@@ -1,4 +1,5 @@
 "use client";
+
 import {
   BookOpenText,
   Clock,
@@ -24,7 +25,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Separator } from "./ui/separator";
@@ -36,6 +37,7 @@ const items = [
     title: "Home",
     url: "/",
     icon: Home,
+    isActive: true,
   },
   {
     title: "JSON Viewer",
@@ -86,11 +88,23 @@ const items = [
 
 export function AppSidebar() {
   const router = useRouter();
+  const pathname = usePathname();
   const [isDarkMode, setIsDarkMode] = useState(false);
   const { open } = useSidebar();
 
   const handleClick = (url: string) => {
     router.replace(url);
+  };
+
+  const isItemActive = (itemUrl: string) => {
+    if (itemUrl === "/" && pathname === "/") {
+      return true;
+    }
+
+    if (itemUrl !== "/" && pathname && pathname.startsWith(itemUrl)) {
+      return true;
+    }
+    return false;
   };
 
   useEffect(() => {
@@ -145,6 +159,7 @@ export function AppSidebar() {
             >
               <SidebarMenuButton
                 asChild
+                isActive={isItemActive(item.url)}
                 className="gap-1.5 py-2 px-2"
                 tooltip={item.title}
               >
