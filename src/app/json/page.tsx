@@ -27,6 +27,11 @@ const darkColorspace: NamedColorspace = {
   base0F: "#ab7967", // Deprecated
 };
 
+// Function to fix missing double quotes around keys
+const fixJsonKeys = (jsonString: string): string => {
+  return jsonString.replace(/([{,])\s*([\w$]+)\s*:/g, '$1"$2":');
+};
+
 const Json = () => {
   const [json, setJson] = useState("");
   const [formattedJson, setFormattedJson] = useState("");
@@ -37,8 +42,11 @@ const Json = () => {
       setError("");
       return "";
     }
+
+    const fixedJson = fixJsonKeys(jsonString);
+
     try {
-      const parsed = JSON.parse(jsonString);
+      const parsed = JSON.parse(fixedJson);
       setError("");
       return JSON.stringify(parsed, null, 2);
     } catch (error) {
@@ -49,7 +57,11 @@ const Json = () => {
 
   const handleJsonChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
-    setJson(value);
+    if (!value.trim() && value !== "") {
+      return;
+    }
+    const fixedJson = fixJsonKeys(value);
+    setJson(fixedJson);
     setFormattedJson(beautifyJSON(value));
   };
 
@@ -90,7 +102,7 @@ const Json = () => {
             {/* Output Section */}
             <div className="w-1/2 rounded-lg bg-muted">
               <TabsContent value="tree" className="h-full m-0 p-4">
-                {json && !error && (
+                {json && !error ? (
                   <div className="h-full overflow-auto">
                     <JsonViewer
                       value={JSON.parse(json)}
@@ -98,8 +110,7 @@ const Json = () => {
                       indentWidth={4}
                     />
                   </div>
-                )}
-                {!json && (
+                ) : (
                   <div className="h-full flex items-center justify-center text-muted-foreground">
                     Enter JSON to see tree view
                   </div>
