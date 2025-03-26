@@ -25,11 +25,12 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Separator } from "./ui/separator";
 import { Button } from "./ui/button";
+import Link from "next/link";
 
 // Menu items.
 const items = [
@@ -87,14 +88,9 @@ const items = [
 ];
 
 export function AppSidebar() {
-  const router = useRouter();
   const pathname = usePathname();
   const [isDarkMode, setIsDarkMode] = useState(false);
   const { open } = useSidebar();
-
-  const handleClick = (url: string) => {
-    router.replace(url);
-  };
 
   const isItemActive = (itemUrl: string) => {
     if (itemUrl === "/" && pathname === "/") {
@@ -155,25 +151,26 @@ export function AppSidebar() {
             <SidebarMenuItem
               key={item.title}
               className="cursor-pointer hover:font-[500]"
-              onClick={() => handleClick(item.url)}
             >
-              <SidebarMenuButton
-                asChild
-                isActive={isItemActive(item.url)}
-                className="gap-1.5 py-2 px-2"
-                tooltip={item.title}
-              >
-                <div>
-                  <div className="w-6 h-6" role="icon">
-                    <item.icon />
+              <Link href={item.url} passHref>
+                <SidebarMenuButton
+                  asChild
+                  isActive={isItemActive(item.url)}
+                  className="gap-1.5 py-2 px-2 text-muted-foreground"
+                  tooltip={item.title}
+                >
+                  <div>
+                    <div className="w-6 h-6" role="icon">
+                      <item.icon />
+                    </div>
+                    {open && (
+                      <span className="text-[14px] font-medium">
+                        {item.title}
+                      </span>
+                    )}
                   </div>
-                  {open && (
-                    <span className="text-[14px] font-medium">
-                      {item.title}
-                    </span>
-                  )}
-                </div>
-              </SidebarMenuButton>
+                </SidebarMenuButton>
+              </Link>
             </SidebarMenuItem>
           ))}
         </SidebarMenu>
