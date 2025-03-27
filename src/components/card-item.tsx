@@ -54,7 +54,6 @@ export const CardItem = ({ title, url, description, icon }: CardItemProps) => {
     >
       <div className="bg-sidebar-accent h-12 w-12 flex justify-center items-center rounded-lg">
         <Icon size={32} className="p-1" />
-        {/* <HomeIcon size={32} className="p-1" /> */}
       </div>
       <CardHeader className="pl-4 py-2">
         <CardTitle className="flex gap-0.5 items-center">
