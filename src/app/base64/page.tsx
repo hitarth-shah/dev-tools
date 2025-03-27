@@ -168,7 +168,7 @@ const Base64 = () => {
     if (event.target.files && event.target.files[0]) {
       const selectedFile = event.target.files[0];
       setFile(selectedFile);
-
+      console.log("file", file);
       try {
         const encodedFile = await encodeToBase64(selectedFile);
         setOutputText(encodedFile);
