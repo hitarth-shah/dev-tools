@@ -41,7 +41,11 @@ const Base64 = () => {
       if (input instanceof Blob) {
         return new Promise((resolve, reject) => {
           const reader = new FileReader();
-          reader.readAsDataURL(input);
+          if (input instanceof Blob) {
+            reader.readAsDataURL(input);
+          } else {
+            throw new Error("Input is not a Blob");
+          }
           reader.onload = () => {
             const result = reader.result as string;
             resolve(result.split(",")[1]);
