@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  BookOpen,
   BookOpenText,
   Clock,
   Code,
@@ -84,6 +85,11 @@ const items = [
     title: "Base64 Converter",
     url: "/base64",
     icon: FileCode2,
+  },
+  {
+    title: "Markdown",
+    url: "/markdown",
+    icon: BookOpen,
   },
 ];
 
