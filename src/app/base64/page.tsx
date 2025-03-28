@@ -4,8 +4,9 @@ import { Heading } from "@/components/headings";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import { Input } from "@/components/ui/input";
 
 type EncodableInput = string | Blob | ArrayBuffer | object;
 type DecodedOutput = string | Uint8Array | Blob;
@@ -143,18 +144,19 @@ const Base64 = () => {
       if (mode === "encode") {
         const encoded = await encodeToBase64(value);
         setOutputText(encoded);
-      } else {
+        return;
+      }
+
+      if (mode === "decode" && value !== "") {
         const { type, data } = await decodeFromBase64(value);
-        console.log("type: ", type);
+
         setOutputText(
           type === "Text" ? (data as string) : `Decoded as ${type}`
         );
+
         if (type === "Image") {
           setImageSrc(`data:image/${type};base64,${value}`);
-        }
-
-        // Set PDF only for PDF type
-        if (type === "PDF") {
+        } else if (type === "PDF") {
           setPdf(URL.createObjectURL(data as Blob));
         }
       }
@@ -198,10 +200,16 @@ const Base64 = () => {
     if (newMode !== mode) {
       // Swap values of inputText and outputText when changing modes
       setInputText(outputText);
-      setOutputText(inputText);
+      setOutputText("");
     }
     setMode(newMode);
   };
+
+  useEffect(() => {
+    return () => {
+      if (pdf) URL.revokeObjectURL(pdf);
+    };
+  }, [pdf]);
 
   return (
     <div className="flex flex-col p-8 h-screen w-full max-w-[1600px] mx-auto">
@@ -210,27 +218,31 @@ const Base64 = () => {
         subHeading="Encode and decode text using Base64 encoding"
       />
 
-      <div className="flex gap-4 mb-6">
-        <Button
-          variant={`${mode === "encode" ? "default" : "outline"}`}
-          className={"px-4 py-2 rounded-lg "}
-          onClick={() => handleModeChange("encode")}
-        >
-          Encode
-        </Button>
-        <Button
-          variant={`${mode === "decode" ? "default" : "outline"}`}
-          className={"px-4 py-2 rounded-lg "}
-          onClick={() => handleModeChange("decode")}
-        >
-          Decode
-        </Button>
+      <div className="flex justify-between items-center gap-4 mb-6 w-full">
+        <div className="flex gap-4">
+          <Button
+            variant={`${mode === "encode" ? "default" : "outline"}`}
+            className={"px-4 py-2 rounded-lg "}
+            onClick={() => handleModeChange("encode")}
+          >
+            Encode
+          </Button>
+          <Button
+            variant={`${mode === "decode" ? "default" : "outline"}`}
+            className={"px-4 py-2 rounded-lg "}
+            onClick={() => handleModeChange("decode")}
+          >
+            Decode
+          </Button>
+        </div>
         {mode === "encode" && (
-          <input
-            type="file"
-            onChange={handleFileChange}
-            className="mt-2 border rounded p-2"
-          />
+          <div>
+            <Input
+              type="file"
+              onChange={handleFileChange}
+              className="mt-2 border rounded p-2"
+            />
+          </div>
         )}
       </div>
 
@@ -246,6 +258,7 @@ const Base64 = () => {
               <Textarea
                 value={inputText}
                 onChange={(e) => handleInputChange(e.target.value)}
+                onFocus={(e) => handleInputChange(e.target.value)}
                 placeholder={
                   mode === "encode"
                     ? "Enter text or paste data here..."
@@ -273,8 +286,8 @@ const Base64 = () => {
                   src={imageSrc}
                   alt="Decoded Image"
                   className="max-w-full h-auto"
-                  width={500} // Adjust width as needed
-                  height={500} // Adjust height as needed
+                  width={500}
+                  height={500}
                 />
               ) : (
                 <Textarea
@@ -289,7 +302,7 @@ const Base64 = () => {
                 />
               )}
             </div>
-            {outputText && (
+            {outputText && !pdf && !imageSrc && (
               <Button onClick={copyToClipboard} className="h-10">
                 Copy to Clipboard
               </Button>
