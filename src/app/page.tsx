@@ -1,4 +1,5 @@
 import { CardItem } from "@/components/card-item";
+import Script from "next/script";
 
 const Home = () => {
   const items = [
@@ -59,26 +60,33 @@ const Home = () => {
   ];
 
   return (
-    <div className="w-full min-h-screen max-h-screen flex flex-col justify-center items-center">
-      <div className="flex flex-1 flex-col justify-center items-center gap-3">
-        <h1 className="text-5xl font-bold">Professional Developer Tools</h1>
-        <p className="text-lg text-center">
-          Streamline your workflow, enhance productivity, and ensure code
-          quality with our tools.
-        </p>
+    <>
+      <Script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7586901247725739"
+        crossOrigin="anonymous"
+      />
+      <div className="w-full min-h-screen max-h-screen flex flex-col justify-center items-center">
+        <div className="flex flex-1 flex-col justify-center items-center gap-3">
+          <h1 className="text-5xl font-bold">Professional Developer Tools</h1>
+          <p className="text-lg text-center">
+            Streamline your workflow, enhance productivity, and ensure code
+            quality with our tools.
+          </p>
+        </div>
+        <div className="flex flex-wrap flex-1 w-full justify-evenly items-center gap-x-4 pb-4">
+          {items.map((item, index) => (
+            <CardItem
+              key={index}
+              title={item.title}
+              url={item.url}
+              description={item.description}
+              icon={item.icon}
+            />
+          ))}
+        </div>
       </div>
-      <div className="flex flex-wrap flex-1 w-full justify-evenly items-center gap-x-4 pb-4">
-        {items.map((item, index) => (
-          <CardItem
-            key={index}
-            title={item.title}
-            url={item.url}
-            description={item.description}
-            icon={item.icon}
-          />
-        ))}
-      </div>
-    </div>
+    </>
   );
 };
 
